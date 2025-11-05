@@ -41,6 +41,10 @@ This repository contains my personal dotfiles for setting up a consistent develo
 - History management
 - Cross-platform compatibility
 
+### Custom Scripts (`bin/`)
+- Custom utility scripts for development workflow
+- Scripts are automatically installed to ~/.local/bin during setup
+
 ## Quick Start
 
 ### Automatic Installation
@@ -57,8 +61,9 @@ cd ~/dotfiles
 The installation script will:
 1. Create backups of existing dotfiles
 2. Create symlinks to the dotfiles in this repo
-3. Optionally install recommended tools (Homebrew required on macOS)
-4. Set up git configuration with your details
+3. Install custom bin scripts to ~/.local/bin
+4. Optionally install recommended tools (Homebrew required on macOS)
+5. Set up git configuration with your details
 
 ### Manual Installation
 
@@ -73,6 +78,11 @@ ln -sf ~/dotfiles/.zshrc ~/.zshrc
 ln -sf ~/dotfiles/.gitconfig ~/.gitconfig
 ln -sf ~/dotfiles/.vimrc ~/.vimrc
 ln -sf ~/dotfiles/.bashrc ~/.bashrc
+
+# Install bin scripts
+mkdir -p ~/.local/bin
+ln -sf ~/dotfiles/bin/* ~/.local/bin/
+chmod +x ~/.local/bin/*
 
 # Configure git with your details
 git config --global user.name "Your Name"
@@ -166,6 +176,7 @@ dotfiles/
 ├── .zshrc             # Zsh shell configuration
 ├── .vimrc             # Vim editor configuration
 ├── .bashrc            # Bash shell configuration (fallback)
+├── bin/               # Custom scripts directory
 ├── install.sh         # Automated installation script
 └── README.md          # This file
 ```
@@ -203,6 +214,10 @@ dotfiles/
 - `mkcd()` - Create directory and cd into it
 - `extract()` - Extract various archive formats
 - `reload` - Reload shell configuration
+
+### Custom Scripts (bin/)
+
+The `bin/` directory contains custom utility scripts that enhance your development workflow. These scripts are automatically made available in your PATH when you run the installation script.
 
 ### Key Bindings
 

@@ -125,3 +125,6 @@ extract() {
         echo "'$1' is not a valid file"
     fi
 }
+
+# Load local/private configuration if it exists
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local

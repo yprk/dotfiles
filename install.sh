@@ -95,6 +95,28 @@ install_tools() {
     fi
 }
 
+# Function to install bin scripts
+install_bin_scripts() {
+    echo -e "${BLUE}Installing bin scripts...${NC}"
+
+    # Create ~/.local/bin if it doesn't exist
+    mkdir -p "$HOME/.local/bin"
+
+    # Install bin scripts
+    if [ -d "$DOTFILES_DIR/bin" ]; then
+        for script in "$DOTFILES_DIR/bin"/*; do
+            if [ -f "$script" ]; then
+                script_name=$(basename "$script")
+                create_symlink "$script" "$HOME/.local/bin/$script_name"
+                chmod +x "$HOME/.local/bin/$script_name"
+            fi
+        done
+        echo -e "${GREEN}Bin scripts installed to ~/.local/bin${NC}"
+    else
+        echo -e "${YELLOW}No bin directory found, skipping bin scripts${NC}"
+    fi
+}
+
 # Main installation function
 install_dotfiles() {
     echo -e "${BLUE}Installing dotfiles...${NC}"
@@ -132,6 +154,7 @@ setup_git() {
 main() {
     check_prerequisites
     install_dotfiles
+    install_bin_scripts
     install_tools
     setup_git
 
@@ -139,7 +162,8 @@ main() {
     echo -e "${BLUE}Next steps:${NC}"
     echo "1. Restart your terminal or run: source ~/.zshrc"
     echo "2. If you installed vim-plug, open vim and run :PlugInstall"
-    echo "3. Customize the dotfiles to your preferences"
+    echo "3. Make sure ~/.local/bin is in your PATH (already configured in .zshrc)"
+    echo "4. Customize the dotfiles to your preferences"
     echo ""
     echo -e "${YELLOW}Note: Your original files have been backed up with .backup extension${NC}"
 }
